@@ -13,4 +13,4 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "aarjitpacktest"
-include ':app'
+include ':app' 

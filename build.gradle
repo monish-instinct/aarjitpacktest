@@ -1,14 +1,15 @@
-// Top-level buildscript (required for Android plugin)
+// Top-level buildscript (MUST be at the top)
 buildscript {
     repositories {
-        google()  // Required for 'com.android.tools.build:gradle'
+        google()       // Required for Android Gradle Plugin
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.4.2' // Use latest stable version
+        classpath 'com.android.tools.build:gradle:7.4.2' // Use latest stable
     }
 }
 
+// Apply plugins
 plugins {
     id 'com.android.library'
     id 'maven-publish'
@@ -18,7 +19,7 @@ group = 'com.github.monish-instinct'
 version = '1.0.5'
 
 android {
-    compileSdkVersion 33  // Set your desired SDK version
+    compileSdkVersion 33
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 33
@@ -31,11 +32,13 @@ android {
     }
 }
 
+// Sources JAR task (for JitPack)
 task sourcesJar(type: Jar) {
     archiveClassifier.set('sources')
     from android.sourceSets.main.java.srcDirs
 }
 
+// Publishing setup
 afterEvaluate {
     publishing {
         publications {
