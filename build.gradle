@@ -1,52 +1,55 @@
-apply plugin: 'maven-publish'
+plugins {
+    id 'com.android.library'
+    id 'maven-publish'
+}
 
 group = 'com.github.monish-instinct'
 version = '1.0.0'
 
-publishing {
-    publications {
-        maven(MavenPublication) {
-            groupId = 'com.github.monish-instinct'
-            artifactId = 'aarjitpacktest'
-            version = '1.0.0'
-            
-            artifact('library/libs/developer-environment-library.aar')
-            
-            pom {
-                name = 'Developer Environment Library'
-                description = 'A developer environment library distributed via AAR'
-                url = 'https://github.com/monish-instinct/aarjitpacktest'
-                
-                licenses {
-                    license {
-                        name = 'MIT License'
-                        url = 'https://opensource.org/licenses/MIT'
+// Optional: define a sources JAR if you want to attach one
+task sourcesJar(type: Jar) {
+    archiveClassifier.set('sources')
+    from android.sourceSets.main.java.srcDirs
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                groupId = 'com.github.monish-instinct'
+                artifactId = 'aarjitpacktest'
+                version = '1.0.0'
+
+                from components.release
+
+                artifact sourcesJar
+
+                pom {
+                    name.set('Developer Environment Library')
+                    description.set('A developer environment library distributed via AAR')
+                    url.set('https://github.com/monish-instinct/aarjitpacktest')
+
+                    licenses {
+                        license {
+                            name.set('MIT License')
+                            url.set('https://opensource.org/licenses/MIT')
+                        }
                     }
-                }
-                
-                developers {
-                    developer {
-                        id = 'monish-instinct'
-                        name = 'Monish'
+
+                    developers {
+                        developer {
+                            id.set('monish-instinct')
+                            name.set('Monish')
+                        }
                     }
-                }
-                
-                scm {
-                    connection = 'scm:git:git://github.com/monish-instinct/aarjitpacktest.git'
-                    developerConnection = 'scm:git:ssh://git@github.com:monish-instinct/aarjitpacktest.git'
-                    url = 'https://github.com/monish-instinct/aarjitpacktest/tree/main'
+
+                    scm {
+                        connection.set('scm:git:git://github.com/monish-instinct/aarjitpacktest.git')
+                        developerConnection.set('scm:git:ssh://git@github.com:monish-instinct/aarjitpacktest.git')
+                        url.set('https://github.com/monish-instinct/aarjitpacktest/tree/main')
+                    }
                 }
             }
         }
     }
-}
-
-// JitPack task to ensure proper artifact building
-task sourcesJar(type: Jar) {
-    archiveClassifier = 'sources'
-    from 'library/libs/developer-environment-library.aar'
-}
-
-artifacts {
-    archives sourcesJar
 }
