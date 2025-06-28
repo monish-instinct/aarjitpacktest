@@ -16,7 +16,7 @@ Add the dependency:
 
 ```gradle
 dependencies {
-    implementation 'com.github.monish-instinct:aarjitpacktest:1.0.0'
+    implementation 'com.github.monish-instinct:aarjitpacktest:v1.0.1'
 }
 ```
 
