@@ -1,3 +1,14 @@
+// Top-level buildscript (required for Android plugin)
+buildscript {
+    repositories {
+        google()  // Required for 'com.android.tools.build:gradle'
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.4.2' // Use latest stable version
+    }
+}
+
 plugins {
     id 'com.android.library'
     id 'maven-publish'
@@ -7,7 +18,17 @@ group = 'com.github.monish-instinct'
 version = '1.0.5'
 
 android {
-    // your usual config (like compileSdkVersion, etc.)
+    compileSdkVersion 33  // Set your desired SDK version
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 33
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
 }
 
 task sourcesJar(type: Jar) {
