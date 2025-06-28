@@ -33,10 +33,20 @@ publishing {
                 
                 scm {
                     connection = 'scm:git:git://github.com/monish-instinct/aarjitpacktest.git'
-                    developerConnection = 'scm:git:ssh://github.com:monish-instinct/aarjitpacktest.git'
+                    developerConnection = 'scm:git:ssh://git@github.com:monish-instinct/aarjitpacktest.git'
                     url = 'https://github.com/monish-instinct/aarjitpacktest/tree/main'
                 }
             }
         }
     }
+}
+
+// JitPack task to ensure proper artifact building
+task sourcesJar(type: Jar) {
+    archiveClassifier = 'sources'
+    from 'library/libs/developer-environment-library.aar'
+}
+
+artifacts {
+    archives sourcesJar
 }
